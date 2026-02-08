@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://doe2even88ln5"]
+
+[ext_resource type="Script" uid="uid://cc55ttlbh1v0f" path="res://scripts/documenttab.gd" id="1_js3vt"]
+[ext_resource type="FontFile" uid="uid://1bjgbu2dbt5" path="res://fonts/RobotoMono-Regular.ttf" id="2_b8gme"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t1qvn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_po08t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iuabp"]
+
+[node name="DocumentTab" type="Control" unique_id=246022622]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_js3vt")
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=1386894584]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 239.0
+offset_top = 151.0
+offset_right = 1739.0
+offset_bottom = 1258.0
+theme_override_colors/search_result_border_color = Color(0.3019608, 0.3019608, 0.3019608, 0)
+theme_override_colors/caret_color = Color(1, 0.37292084, 0.30515432, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.42352942)
+theme_override_colors/background_color = Color(0, 0, 0, 0)
+theme_override_colors/current_line_color = Color(0.2509804, 0.2509804, 0.25882354, 0)
+theme_override_fonts/font = ExtResource("2_b8gme")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t1qvn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_po08t")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_iuabp")
+placeholder_text = "Tiffany Writing Software BETA"
+wrap_mode = 1
+scroll_smooth = true
+caret_blink = true

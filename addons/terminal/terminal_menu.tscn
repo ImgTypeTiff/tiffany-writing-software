@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://ckc1sg17rg3xr"]
+
+[ext_resource type="Script" uid="uid://cbkjht2m8kbut" path="res://addons/terminal/terminal_menu.gd" id="1_x7sc3"]
+[ext_resource type="FontFile" uid="uid://ol6bpqsutq4k" path="res://fonts/windows_command_prompt.ttf" id="2_xa1sb"]
+[ext_resource type="VideoStream" uid="uid://q0khubipup8u" path="res://Outer_Wilds.ogv" id="3_k4cxx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qi1kj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xa1sb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k4cxx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afe3s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vpdv5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sghhl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qo211"]
+
+[sub_resource type="GDScript" id="GDScript_6h83f"]
+script/source = "extends TextEdit
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="TerminalMenu" type="Control" unique_id=254981014]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x7sc3")
+menuOpenInputAxis = "toggle_terminal_menu"
+menuUpAxis = "terminal_up"
+menuClearAxis = "terminal_clear"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=750146771]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=528852897]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.8
+offset_left = 2.0
+offset_top = 60.0
+offset_right = 2.0
+offset_bottom = 60.0
+
+[node name="Label" type="TextEdit" parent="ScrollContainer" unique_id=1177894526]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/background_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("2_xa1sb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qi1kj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xa1sb")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_k4cxx")
+text = "	"
+editable = false
+scroll_smooth = true
+scroll_fit_content_height = true
+draw_control_chars = true
+draw_tabs = true
+draw_spaces = true
+
+[node name="TerminalInputContainer" type="PanelContainer" parent="." unique_id=60173766]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -864.0
+offset_bottom = -996.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_afe3s")
+
+[node name="TerminalInput" type="TextEdit" parent="TerminalInputContainer" unique_id=537983846]
+layout_mode = 2
+theme_override_colors/search_result_color = Color(0.3019608, 0.3019608, 0.3019608, 0)
+theme_override_colors/search_result_border_color = Color(0.3019608, 0.3019608, 0.3019608, 0)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/background_color = Color(0, 0, 0, 0)
+theme_override_colors/current_line_color = Color(0.2509804, 0.2509804, 0.25882354, 0)
+theme_override_fonts/font = ExtResource("2_xa1sb")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vpdv5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sghhl")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_qo211")
+placeholder_text = "Command..."
+wrap_mode = 1
+caret_blink = true
+script = SubResource("GDScript_6h83f")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1024258510]
+position = Vector2(1952, -75)
+scale = Vector2(0.5, 0.5)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Node2D" unique_id=1353727818]
+offset_left = -630.0
+offset_top = 1964.0
+offset_right = 1290.0
+offset_bottom = 3044.0
+scale = Vector2(0.25, 0.25)
+stream = ExtResource("3_k4cxx")
+autoplay = true
+loop = true
+
+[connection signal="text_changed" from="TerminalInputContainer/TerminalInput" to="." method="_on_text_edit_text_changed"]

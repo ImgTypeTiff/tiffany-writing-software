@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://sggpotlauqok"]
+
+[ext_resource type="PackedScene" uid="uid://6d14ebg35elt" path="res://outer wilds training log6.glb" id="1_fijbg"]
+[ext_resource type="Texture2D" uid="uid://c80bdf7gq40q8" path="res://outer wilds training log6_train.png" id="2_f0xhj"]
+[ext_resource type="Script" uid="uid://bsqn11gwm8noi" path="res://book.gd" id="3_3r6c0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xeei7"]
+resource_name = "2"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("2_f0xhj")
+albedo_texture_force_srgb = true
+
+[sub_resource type="Environment" id="Environment_fijbg"]
+
+[node name="_outer_wilds" instance=ExtResource("1_fijbg")]
+
+[node name="Cube_002" parent="." index="0"]
+surface_material_override/1 = SubResource("StandardMaterial3D_xeei7")
+
+[node name="AnimationPlayer" parent="." index="1"]
+script = ExtResource("3_3r6c0")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
+environment = SubResource("Environment_fijbg")
+
+[connection signal="animation_changed" from="AnimationPlayer" to="AnimationPlayer" method="_on_animation_changed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="_on_animation_finished"]

@@ -1,0 +1,224 @@
+[gd_scene load_steps=12 format=3 uid="uid://cq8hr62qaqs2y"]
+
+[ext_resource type="Texture2D" uid="uid://doe45tcpehl1b" path="res://images/coconut.png" id="1_tcvp6"]
+[ext_resource type="Script" uid="uid://cclpp3a7hlfyl" path="res://scripts/gpu.gd" id="2_dc1yq"]
+[ext_resource type="Script" uid="uid://dktdqatebpyps" path="res://scripts/gpu_particles_2d_2.gd" id="3_v8s8u"]
+[ext_resource type="Material" uid="uid://dn8w5c74hmrud" path="res://new folder/explode.tres" id="4_grdhf"]
+[ext_resource type="Script" uid="uid://b8ygefww4ojtg" path="res://scripts/elol.gd" id="4_iduc2"]
+[ext_resource type="Script" uid="uid://c6aw3r4blpjr2" path="res://scripts/4.gd" id="5_fmmjk"]
+[ext_resource type="Script" uid="uid://bugfmkvvf8obi" path="res://scripts/gpu_particles_2d_3.gd" id="7_dly7r"]
+[ext_resource type="Script" uid="uid://dlkfawmwbchtb" path="res://scripts/gpu_particles_2d_6.gd" id="8_l2yr6"]
+
+[sub_resource type="Curve" id="Curve_dc1yq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.013793096, 0.2483775), 0.0, 0.0, 0, 0, Vector2(0.17586204, 0.5705014), 0.0, 0.0, 0, 0, Vector2(0.1827586, 0.9693215), 0.0, 0.0, 0, 0, Vector2(0.21379307, 0.7123893), 0.0, 0.0, 0, 0, Vector2(0.2241379, 0.22536868), 0.0, 0.0, 0, 0, Vector2(0.32068962, 0.23303825), 0.0, 0.0, 0, 0, Vector2(0.32758617, 0.957817), 0.0, 0.0, 0, 0, Vector2(0.40689653, 0.46312678), 0.0, 0.0, 0, 0, Vector2(0.5206896, 0.9002949), 0.0, 0.0, 0, 0, Vector2(0.5482758, 0.27138638), 0.0, 0.0, 0, 0, Vector2(0.6034482, 0.7699114), 0.0, 0.0, 0, 0, Vector2(0.67931026, 0.43244833), 0.0, 0.0, 0, 0, Vector2(0.77241373, 0.9961651), 0.0, 0.0, 0, 0, Vector2(0.78620684, 0.2598819), 0.0, 0.0, 0, 0, Vector2(0.8586206, 0.81209433), 0.0, 0.0, 0, 0, Vector2(0.90344816, 0.3749262), 0.0, 0.0, 0, 0, Vector2(0.94137925, 0.677876), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 19
+
+[sub_resource type="CurveTexture" id="CurveTexture_fmmjk"]
+curve = SubResource("Curve_dc1yq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iduc2"]
+particle_flag_disable_z = true
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+radial_velocity_min = 999.99994
+radial_velocity_max = 999.99994
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 99.99999
+linear_accel_max = 99.99999
+radial_accel_min = 99.99999
+radial_accel_max = 99.99999
+tangential_accel_min = 99.99999
+tangential_accel_max = 99.99999
+turbulence_enabled = true
+turbulence_noise_strength = 20.0
+turbulence_noise_speed = Vector3(1000, 1000, 1000)
+turbulence_initial_displacement_min = -100.0
+turbulence_initial_displacement_max = 100.0
+turbulence_influence_over_life = SubResource("CurveTexture_fmmjk")
+
+[node name="Explode" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(833, 509)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_iduc2")
+script = ExtResource("2_dc1yq")
+
+[node name="Timer" type="Timer" parent="GPUParticles2D"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="GPUParticles2D"]
+wait_time = 0.25
+one_shot = true
+
+[node name="Timer3" type="Timer" parent="GPUParticles2D"]
+wait_time = 5.0
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(1631, 861)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+speed_scale = 4.96
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_iduc2")
+script = ExtResource("3_v8s8u")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+position = Vector2(339, 907)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+speed_scale = 4.96
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_iduc2")
+
+[node name="Explode" type="Node2D" parent="."]
+position = Vector2(635, -18)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Explode"]
+position = Vector2(833, 509)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+randomness = 1.0
+process_material = ExtResource("4_grdhf")
+script = ExtResource("4_iduc2")
+
+[node name="Timer" type="Timer" parent="Explode/GPUParticles2D"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="Explode/GPUParticles2D"]
+wait_time = 0.25
+one_shot = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Explode"]
+position = Vector2(889, 180)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+speed_scale = 4.96
+randomness = 1.0
+process_material = ExtResource("4_grdhf")
+script = ExtResource("3_v8s8u")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="Explode"]
+position = Vector2(329, 759)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+speed_scale = 4.96
+randomness = 1.0
+process_material = ExtResource("4_grdhf")
+
+[node name="Explode2" type="Node2D" parent="."]
+position = Vector2(-520, -332)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Explode2"]
+position = Vector2(997, 577)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+randomness = 1.0
+process_material = ExtResource("4_grdhf")
+script = ExtResource("5_fmmjk")
+
+[node name="Timer" type="Timer" parent="Explode2/GPUParticles2D"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="Explode2/GPUParticles2D"]
+wait_time = 0.25
+one_shot = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Explode2"]
+position = Vector2(1631, 861)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+speed_scale = 4.96
+randomness = 1.0
+process_material = ExtResource("4_grdhf")
+script = ExtResource("3_v8s8u")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="Explode2"]
+position = Vector2(723, 821)
+emitting = false
+amount = 1000
+texture = ExtResource("1_tcvp6")
+lifetime = 0.5
+interp_to_end = 1.0
+one_shot = true
+speed_scale = 4.96
+randomness = 1.0
+process_material = ExtResource("4_grdhf")
+script = ExtResource("7_dly7r")
+
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="."]
+amount = 100
+texture = ExtResource("1_tcvp6")
+process_material = ExtResource("4_grdhf")
+
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="."]
+position = Vector2(1290, 548)
+amount = 100
+texture = ExtResource("1_tcvp6")
+process_material = ExtResource("4_grdhf")
+
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="."]
+position = Vector2(55, 1121)
+emitting = false
+amount = 100
+texture = ExtResource("1_tcvp6")
+process_material = ExtResource("4_grdhf")
+script = ExtResource("8_l2yr6")
+
+[node name="GPUParticles2D7" type="GPUParticles2D" parent="."]
+position = Vector2(708, 548)
+emitting = false
+amount = 100
+texture = ExtResource("1_tcvp6")
+process_material = ExtResource("4_grdhf")
+script = ExtResource("8_l2yr6")
+
+[connection signal="timeout" from="GPUParticles2D/Timer" to="GPUParticles2D" method="_on_timer_timeout"]
+[connection signal="timeout" from="GPUParticles2D/Timer2" to="GPUParticles2D" method="_on_timer_2_timeout"]
+[connection signal="timeout" from="GPUParticles2D/Timer3" to="GPUParticles2D" method="_on_timer_3_timeout"]
+[connection signal="finished" from="GPUParticles2D2" to="GPUParticles2D2" method="_on_gpu_particles_2d_2_finished"]
+[connection signal="finished" from="GPUParticles2D2" to="Explode/GPUParticles2D" method="notready"]
+[connection signal="finished" from="GPUParticles2D3" to="Explode2/GPUParticles2D" method="_on_gpu_particles_2d_3_finished"]
+[connection signal="timeout" from="Explode/GPUParticles2D/Timer" to="Explode/GPUParticles2D" method="_on_timer_timeout"]
+[connection signal="timeout" from="Explode/GPUParticles2D/Timer2" to="Explode/GPUParticles2D" method="_on_timer_2_timeout"]
+[connection signal="finished" from="Explode/GPUParticles2D2" to="Explode/GPUParticles2D2" method="_on_gpu_particles_2d_2_finished"]
+[connection signal="timeout" from="Explode2/GPUParticles2D/Timer" to="Explode2/GPUParticles2D" method="_on_timer_timeout"]
+[connection signal="timeout" from="Explode2/GPUParticles2D/Timer2" to="Explode2/GPUParticles2D" method="_on_timer_2_timeout"]
+[connection signal="finished" from="Explode2/GPUParticles2D3" to="GPUParticles2D6" method="_on_gpu_particles_2d_3_finished"]

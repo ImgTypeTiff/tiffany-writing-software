@@ -1,0 +1,28 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://dn8w5c74hmrud"]
+
+[sub_resource type="Curve" id="Curve_grdhf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.013793096, 0.2483775), 0.0, 0.0, 0, 0, Vector2(0.17586204, 0.5705014), 0.0, 0.0, 0, 0, Vector2(0.1827586, 0.9693215), 0.0, 0.0, 0, 0, Vector2(0.21379307, 0.7123893), 0.0, 0.0, 0, 0, Vector2(0.2241379, 0.22536868), 0.0, 0.0, 0, 0, Vector2(0.32068962, 0.23303825), 0.0, 0.0, 0, 0, Vector2(0.32758617, 0.957817), 0.0, 0.0, 0, 0, Vector2(0.40689653, 0.46312678), 0.0, 0.0, 0, 0, Vector2(0.5206896, 0.9002949), 0.0, 0.0, 0, 0, Vector2(0.5482758, 0.27138638), 0.0, 0.0, 0, 0, Vector2(0.6034482, 0.7699114), 0.0, 0.0, 0, 0, Vector2(0.67931026, 0.43244833), 0.0, 0.0, 0, 0, Vector2(0.77241373, 0.9961651), 0.0, 0.0, 0, 0, Vector2(0.78620684, 0.2598819), 0.0, 0.0, 0, 0, Vector2(0.8586206, 0.81209433), 0.0, 0.0, 0, 0, Vector2(0.90344816, 0.3749262), 0.0, 0.0, 0, 0, Vector2(0.94137925, 0.677876), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 19
+
+[sub_resource type="CurveTexture" id="CurveTexture_v8s8u"]
+curve = SubResource("Curve_grdhf")
+
+[resource]
+particle_flag_disable_z = true
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+radial_velocity_min = 999.99994
+radial_velocity_max = 999.99994
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 99.99999
+linear_accel_max = 99.99999
+radial_accel_min = 99.99999
+radial_accel_max = 99.99999
+tangential_accel_min = 99.99999
+tangential_accel_max = 99.99999
+turbulence_enabled = true
+turbulence_noise_strength = 20.0
+turbulence_noise_speed = Vector3(1000, 1000, 1000)
+turbulence_initial_displacement_min = -100.0
+turbulence_initial_displacement_max = 100.0
+turbulence_influence_over_life = SubResource("CurveTexture_v8s8u")

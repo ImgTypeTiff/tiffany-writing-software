@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://738ku1tfxmbr"]
+
+[ext_resource type="Script" uid="uid://hj02l888tcwb" path="res://tiff scenes/shortcut.gd" id="1_153dy"]
+
+[node name="OuterSpace" type="Node2D"]
+script = ExtResource("1_153dy")
+file_path = "uid://d4e1dngjl4mra"

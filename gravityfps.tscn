@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0jnrcg82inad"]
+
+[ext_resource type="Script" uid="uid://lbbwa8ecw6n4" path="res://Gaming Scenes/the_gravity_fps_of_all_time.gd" id="1_03qom"]
+[ext_resource type="FontFile" uid="uid://ctdbtckcvfoa2" path="res://Gaming Scenes/VCR_OSD_MONO_1.001.ttf" id="3_nre33"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pt538"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6lvqh"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_03qom")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_pt538")
+
+[node name="Head" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D"]
+light_energy = 5.113
+spot_range = 11.987935
+spot_angle = 57.250282
+
+[node name="ilt" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="LTilt" type="Marker3D" parent="ilt"]
+unique_name_in_owner = true
+
+[node name="RTilt" type="Marker3D" parent="ilt"]
+unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InteracrLabelHolder" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="InteractLabel" type="RichTextLabel" parent="CanvasLayer/InteracrLabelHolder"]
+layout_mode = 0
+offset_left = 726.0
+offset_top = 221.0
+offset_right = 785.0
+offset_bottom = 348.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("3_nre33")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "="
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+metadata/_edit_use_anchors_ = true
+
+[node name="InteractLabel2" type="RichTextLabel" parent="CanvasLayer/InteracrLabelHolder"]
+layout_mode = 0
+offset_left = 727.0
+offset_top = 270.0
+offset_right = 786.0
+offset_bottom = 397.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("3_nre33")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "="
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+metadata/_edit_use_anchors_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_6lvqh")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39944804, 0, -0.5471451)

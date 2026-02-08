@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://yudbc0nvoyx1"]
+
+[ext_resource type="Script" uid="uid://csj2ideoy60th" path="res://addons/GetFromGit/get_from_git_plugin.gd" id="1_fldwx"]
+
+[node name="GetFromGit" type="Node"]
+script = ExtResource("1_fldwx")

@@ -1,0 +1,269 @@
+[gd_scene format=3 uid="uid://d4e1dngjl4mra"]
+
+[ext_resource type="Script" uid="uid://bm0t6i5e2tlwm" path="res://addons/custom_gravity/nodes/gravity_area_3d.gd" id="2_5o46w"]
+[ext_resource type="Script" uid="uid://b74lvdpjxou71" path="res://Gaming Scenes/signalscope.gd" id="2_hhn2b"]
+[ext_resource type="PackedScene" uid="uid://c7rel8h0oywx8" path="res://blip.tscn" id="3_g1klx"]
+[ext_resource type="Script" uid="uid://bfu5frk1hgx31" path="res://addons/custom_gravity/types/point_gravity.gd" id="3_hhn2b"]
+[ext_resource type="Script" uid="uid://dt86ul5pfl2dm" path="res://character_controller.gd" id="4_e2jl0"]
+[ext_resource type="Texture2D" uid="uid://bsdne7saqa4y7" path="res://Gaming Scenes/solar system scenes/ESO_-_Milky_Way.jpg" id="5_5o46w"]
+[ext_resource type="Script" uid="uid://ckbghhnucsvpc" path="res://canvas_layer.gd" id="5_s8q6r"]
+[ext_resource type="PackedScene" uid="uid://dthpuwo5v4kcv" path="res://SignalIndicator.tscn" id="6_74wmy"]
+[ext_resource type="Script" uid="uid://b2k282huldh6d" path="res://addons/laser_3d/laser_3d.gd" id="10_74wmy"]
+[ext_resource type="Script" uid="uid://d26cj8cevmtst" path="res://Gaming Scenes/solar system scenes/SolarSystem.cs" id="11_jvxrh"]
+[ext_resource type="Script" uid="uid://ba06vjsr5udoq" path="res://Gaming Scenes/solar system scenes/Planet.cs" id="11_y0ct2"]
+[ext_resource type="Shader" uid="uid://d0n1ssjt7245p" path="res://Gaming Scenes/BlackHole.gdshader" id="12_52oqg"]
+[ext_resource type="Script" uid="uid://dleyfar3rotnd" path="res://Gaming Scenes/BHTeleportation.gd" id="13_d0j4t"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ypvg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11cwd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5o46w"]
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhn2b"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g1klx"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hhn2b"]
+panorama = ExtResource("5_5o46w")
+
+[sub_resource type="Sky" id="Sky_ygixq"]
+sky_material = SubResource("PanoramaSkyMaterial_hhn2b")
+
+[sub_resource type="Environment" id="Environment_g1klx"]
+background_mode = 2
+background_energy_multiplier = 0.14
+sky = SubResource("Sky_ygixq")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.01
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y0ct2"]
+radius = 15.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_11cwd"]
+radius = 15.0
+height = 30.0
+
+[sub_resource type="Resource" id="Resource_5ypvg"]
+script = ExtResource("3_hhn2b")
+metadata/_custom_type_script = "uid://bfu5frk1hgx31"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y7u2n"]
+radius = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lxdgu"]
+render_priority = 0
+shader = ExtResource("12_52oqg")
+shader_parameter/black_hole_color = Color(1, 1, 1, 1)
+shader_parameter/scale = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_jvxrh"]
+material = SubResource("ShaderMaterial_lxdgu")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_52oqg"]
+radius = 10.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_y0ct2"]
+radius = 10.0
+height = 20.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_d0j4t"]
+radius = 20.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0j4t"]
+render_priority = 0
+shader = ExtResource("12_52oqg")
+shader_parameter/black_hole_color = Color(0, 0, 0, 1)
+shader_parameter/scale = 110.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_lxdgu"]
+material = SubResource("ShaderMaterial_d0j4t")
+radius = 60.0
+height = 120.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lxdgu"]
+radius = 60.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jvxrh"]
+radius = 101.521614
+
+[node name="Node3D" type="Node3D" unique_id=1985573709]
+script = ExtResource("11_jvxrh")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1499721052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9378881, 24.355965, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=476745991]
+mesh = SubResource("BoxMesh_5ypvg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1954711624]
+shape = SubResource("BoxShape3D_11cwd")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1372706084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.165221, 0.49603462)
+collision_layer = 3
+collision_mask = 3
+floor_constant_speed = true
+floor_max_angle = 1.0471976
+platform_wall_layers = 65535
+script = ExtResource("4_e2jl0")
+auto_rotation_speed = 100.0
+thrust = 5.0
+InputDictionary = {
+"Backward": "Backward",
+"Forward": "Forward",
+"Jump": "Jump",
+"Left": "Left",
+"Right": "Right",
+"Sprint": "Up"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1141190278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_5o46w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=905452095]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+material_override = SubResource("StandardMaterial3D_hhn2b")
+mesh = SubResource("CapsuleMesh_g1klx")
+
+[node name="Head" type="Node3D" parent="CharacterBody3D" unique_id=1345381954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head" unique_id=307444056]
+
+[node name="Node3D" type="Node3D" parent="CharacterBody3D/Head/Camera3D" unique_id=843113719]
+script = ExtResource("2_hhn2b")
+blip_scene = ExtResource("3_g1klx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CharacterBody3D/Head" unique_id=969923032 node_paths=PackedStringArray("player_camera")]
+follow_viewport_scale = 0.0
+script = ExtResource("5_s8q6r")
+indicator_scene = ExtResource("6_74wmy")
+player_camera = NodePath("../Camera3D")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1252572071]
+environment = SubResource("Environment_g1klx")
+
+[node name="Test Planet" type="StaticBody3D" parent="." unique_id=1477520575 node_paths=PackedStringArray("_orbitalParent") groups=["Planet"]]
+script = ExtResource("11_y0ct2")
+_orbitalParent = NodePath("../Test Black Hole")
+_orbitalRadius = 200.0
+_orbitalAngle = -70.0
+surfaceRadius = 30.0
+_surfaceGravity = 9.8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test Planet" unique_id=2129510085]
+shape = SubResource("SphereShape3D_y0ct2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Test Planet" unique_id=1985247038]
+mesh = SubResource("SphereMesh_11cwd")
+skeleton = NodePath("../..")
+
+[node name="Laser3D" type="Node3D" parent="Test Planet" unique_id=1542040175 node_paths=PackedStringArray("laser_look_at_target")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("10_74wmy")
+laser_type_visible = 1
+laser_radius = 0.2
+laser_look_at_target = NodePath("../../Test Moon")
+laser_length = 10000.0
+metadata/_custom_type_script = "uid://b2k282huldh6d"
+
+[node name="GravityArea3D" type="Area3D" parent="Test Planet" unique_id=1598137430]
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+script = ExtResource("2_5o46w")
+gravity_resource = SubResource("Resource_5ypvg")
+metadata/_custom_type_script = "uid://bm0t6i5e2tlwm"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test Planet/GravityArea3D" unique_id=691817892]
+shape = SubResource("SphereShape3D_y7u2n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Test Planet" unique_id=2109226507]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.60866, 0)
+mesh = SubResource("SphereMesh_jvxrh")
+
+[node name="Test Moon" type="StaticBody3D" parent="." unique_id=1970114323 node_paths=PackedStringArray("_orbitalParent") groups=["Planet", "SignalEmitter"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132.07806, 0, 0)
+collision_layer = 255
+script = ExtResource("11_y0ct2")
+_orbitalParent = NodePath("../Test Planet")
+_orbitalRadius = 50.0
+surfaceRadius = 10.0
+_surfaceGravity = 5.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Test Moon" unique_id=1926582145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.194801, 0)
+light_energy = 16.0
+omni_range = 12.930635
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test Moon" unique_id=1259836048 groups=["SignalEmitter"]]
+shape = SubResource("SphereShape3D_52oqg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Test Moon" unique_id=487298721]
+mesh = SubResource("SphereMesh_y0ct2")
+skeleton = NodePath("../..")
+
+[node name="GravityArea3D" type="Area3D" parent="Test Moon" unique_id=1233204355]
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+gravity = 12.769
+script = ExtResource("2_5o46w")
+gravity_resource = SubResource("Resource_5ypvg")
+metadata/_custom_type_script = "uid://bm0t6i5e2tlwm"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test Moon/GravityArea3D" unique_id=1075002148]
+shape = SubResource("SphereShape3D_d0j4t")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Test Moon" unique_id=1468579877]
+transform = Transform3D(0.0067019714, 0, 0.9999775, 0, 1, 0, -0.9999775, 0, 0.0067019714, 0, 18.111067, 0)
+light_energy = 100.0
+spot_range = 1.4558319
+
+[node name="Test Black Hole" type="StaticBody3D" parent="." unique_id=699166931 groups=["Planet", "SignalEmitter"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182.86002, 0, 0)
+collision_layer = 255
+script = ExtResource("11_y0ct2")
+_orbitalRadius = 50.0
+surfaceRadius = 125.0
+_surfaceGravity = 30.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Test Black Hole" unique_id=1102459822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.194801, 0)
+light_energy = 16.0
+omni_range = 12.930635
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Test Black Hole" unique_id=315897903 node_paths=PackedStringArray("_staticbody3d", "white_hole")]
+mesh = SubResource("SphereMesh_lxdgu")
+skeleton = NodePath("../..")
+script = ExtResource("13_d0j4t")
+_staticbody3d = NodePath("..")
+white_hole = NodePath("../../Test Planet/MeshInstance3D")
+
+[node name="Area3D" type="Area3D" parent="Test Black Hole/MeshInstance3D2" unique_id=170908528]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test Black Hole/MeshInstance3D2/Area3D" unique_id=1822582349]
+shape = SubResource("SphereShape3D_lxdgu")
+
+[node name="GravityArea3D" type="Area3D" parent="Test Black Hole" unique_id=651265602]
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+gravity = 12.769
+script = ExtResource("2_5o46w")
+gravity_resource = SubResource("Resource_5ypvg")
+metadata/_custom_type_script = "uid://bm0t6i5e2tlwm"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test Black Hole/GravityArea3D" unique_id=1154074048]
+shape = SubResource("SphereShape3D_jvxrh")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Test Black Hole" unique_id=948600850]
+transform = Transform3D(0.0067019714, 0, 0.9999775, 0, 1, 0, -0.9999775, 0, 0.0067019714, 0, 18.111067, 0)
+light_energy = 100.0
+spot_range = 1.4558319

@@ -1,0 +1,168 @@
+@tool
+class_name BoxGravity
+extends Gravity
+
+var _bounds: AABB = AABB(Vector3.ONE * -5, Vector3.ONE * 10)
+
+## Size of the box surface
+@export var size: Vector3:
+	set(value):
+		_bounds.size = value
+		_bounds.position = value * -0.5
+		_validate_depth()
+		changed.emit()
+	get:
+		return _bounds.size
+
+## Depth of the gravity field away from the box survace
+@export var depth: float = 4:
+	set(value):
+		depth = value
+		_validate_depth()
+		changed.emit()
+
+## When true, gravity will be inverted and push away from the center.
+@export var invert: bool = false:
+	set(value):
+		invert = value
+		changed.emit()
+
+
+## When using invert mode, gravity depth cannot exceed the smallest dimension
+func _validate_depth():
+	if !invert:
+		return
+	var half_least_side = _bounds.get_shortest_axis_size() * 0.5
+	if depth > half_least_side:
+		depth = half_least_side
+
+
+func _get_outer_segment(position: Vector3) -> Vector3:
+	var grav_vec = Vector3.ZERO
+
+	if position.x < _bounds.position.x:
+		grav_vec.x = 1
+	elif position.x > _bounds.size.x + _bounds.position.x:
+		grav_vec.x = -1
+
+	if position.y < _bounds.position.y:
+		grav_vec.y = 1
+	elif position.y > _bounds.size.y + _bounds.position.y:
+		grav_vec.y = -1
+
+	if position.z < _bounds.position.z:
+		grav_vec.z = 1
+	elif position.z > _bounds.size.z + _bounds.position.z:
+		grav_vec.z = -1
+
+	return grav_vec
+
+
+func _get_inner_segment(position: Vector3) -> Vector3:
+	var grav_vec = Vector3.ZERO
+
+	if position.x < _bounds.position.x + depth:
+		grav_vec.x = -1
+	elif position.x > _bounds.size.x + _bounds.position.x - depth:
+		grav_vec.x = 1
+
+	if position.y < _bounds.position.y + depth:
+		grav_vec.y = -1
+	elif position.y > _bounds.size.y + _bounds.position.y - depth:
+		grav_vec.y = 1
+
+	if position.z < _bounds.position.z + depth:
+		grav_vec.z = -1
+	elif position.z > _bounds.size.z + _bounds.position.z - depth:
+		grav_vec.z = 1
+
+	return grav_vec
+
+
+func _get_segment(position: Vector3) -> Vector3:
+	# If inverted, the point should be inside. Otherwise, it should be outside.
+	if invert != _bounds.has_point(position):
+		return Vector3.ZERO
+
+	var deepened = _bounds.grow(-depth if invert else depth)
+	if invert == deepened.has_point(position):
+		return Vector3.ZERO
+
+	if invert:
+		return _get_inner_segment(position)
+	return _get_outer_segment(position)
+
+
+func _get_edge_gravity(grav_vec: Vector3, position: Vector3) -> Vector3:
+	# For edges, two axies will be 1. Making a new vector which only has a non-zero value on this
+	# same axis will be tangential by definition
+	var inset = Vector3.ONE * (depth if invert else 0)
+	var point_a = (_bounds.end - inset) * grav_vec
+	var point_b = point_a
+	var min_axis = grav_vec.abs().min_axis_index()
+	point_a[min_axis] = _bounds.end[min_axis]
+	point_b[min_axis] = -_bounds.end[min_axis]
+
+	var closest_point = Geometry3D.get_closest_point_to_segment_uncapped(position, point_a, point_b)
+	var offset = closest_point - position
+	return offset.normalized() * (-1 if invert else 1)
+
+
+func _get_corner_gravity(grav_vec: Vector3, position) -> Vector3:
+	var corner_offset = Vector3.ONE * depth if invert else Vector3.ZERO
+	var corner = (_bounds.end - corner_offset) * grav_vec
+	var offset = corner - position
+	return offset.normalized()  * (-1 if invert else 1)
+
+
+func _get_segment_gravity(grav_vec: Vector3, position: Vector3) -> Vector3:
+	if grav_vec == Vector3.ZERO:
+		return grav_vec
+
+	if grav_vec.length_squared() == 1:
+		return grav_vec
+
+	if grav_vec.length_squared() == 2:
+		return _get_edge_gravity(grav_vec, position)
+
+	if grav_vec.length_squared() == 3:
+		return _get_corner_gravity(grav_vec, position)
+
+	return Vector3.ZERO
+
+
+func get_gravity_at(position: Vector3) -> Vector3:
+	var grav_vec = _get_segment(position)
+	return _get_segment_gravity(grav_vec, position) 
+
+
+func is_within_influence(position: Vector3) -> bool:
+	if !shrink_fit:
+		return true
+
+	var abs_pos = position.abs()
+	var half_size = size * 0.5
+	var depth_vector = Vector3.ONE * depth
+
+	if !invert:
+		# Normal mode: outside the box, within depth distance
+		# Must be outside on at least one axis and not too far on any axis
+		var outside = abs_pos.x > half_size.x || abs_pos.y > half_size.y || abs_pos.z > half_size.z
+		if !outside:
+			return false
+		var too_far = (
+			abs_pos.x > half_size.x + depth
+			|| abs_pos.y > half_size.y + depth
+			|| abs_pos.z > half_size.z + depth
+		)
+		return !too_far
+
+	# Inverted mode: inside the box, within depth distance from walls
+	# Check each axis - must be inside on all axes
+	if abs_pos.x > half_size.x || abs_pos.y > half_size.y || abs_pos.z > half_size.z:
+		return false
+	# Must be close to at least one wall (within depth distance on any axis)
+	var near_x = abs_pos.x > half_size.x - depth
+	var near_y = abs_pos.y > half_size.y - depth
+	var near_z = abs_pos.z > half_size.z - depth
+	return near_x || near_y || near_z

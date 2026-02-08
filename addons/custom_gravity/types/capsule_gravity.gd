@@ -1,0 +1,50 @@
+@tool
+class_name CapsuleGravity
+extends Gravity
+
+## Reference point to define center line and one end of capsule
+@export var point_a: Vector3 = Vector3.UP:
+	set(value):
+		point_a = value
+		changed.emit()
+
+## Reference point to define center line and one end of capsule
+@export var point_b: Vector3 = Vector3.DOWN:
+	set(value):
+		point_b = value
+		changed.emit()
+
+## The radius at which gravity is equal to the set value.
+## When positive, the value will weaken exponentially with absolute difference from this radius.
+## When non-positive, acceleration will be constant throughout the area.
+@export var peak_radius: float = 0:
+	set(value):
+		peak_radius = value
+		changed.emit()
+
+## When positive, gravity will not be applied to objects within this radius.
+@export var hollow_radius: float = 0:
+	set(value):
+		hollow_radius = value
+		changed.emit()
+
+## When true, gravity will be inverted and push away from the center.
+@export var invert: bool = false:
+	set(value):
+		invert = value
+		changed.emit()
+
+
+func get_gravity_at(position: Vector3) -> Vector3:
+	var closest_point = Geometry3D.get_closest_point_to_segment(position, point_a, point_b)
+	var offset = closest_point - position
+	var base_vector = offset.normalized() 
+	if invert:
+		base_vector *= -1
+	if offset.length() < hollow_radius:
+		return Vector3.ZERO
+	if peak_radius <= 0:
+		# constant strength
+		return base_vector
+
+	return base_vector * (offset.length_squared() - peak_radius) / (peak_radius ** 0.5)

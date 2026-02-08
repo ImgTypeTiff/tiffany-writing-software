@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dthpuwo5v4kcv"]
+
+[ext_resource type="Texture2D" uid="uid://cs164xgnnwfpg" path="res://circle2.png" id="1_2j7so"]
+[ext_resource type="Script" uid="uid://bcpyknl581102" path="res://signal_indicator.gd" id="1_ndie8"]
+[ext_resource type="Script" uid="uid://bw2n0cq5758wc" path="res://half.gd" id="2_o41ma"]
+
+[node name="Control" type="Control" unique_id=1749733106]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ndie8")
+max_offset = 300.0
+snap_threshold = 20.0
+
+[node name="LeftHalf" type="Control" parent="." unique_id=1322470701]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_o41ma")
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftHalf" unique_id=1917660897]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_2j7so")
+
+[node name="RightHalf" type="Control" parent="." unique_id=397541336]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+script = ExtResource("2_o41ma")
+
+[node name="Sprite2D" type="Sprite2D" parent="RightHalf" unique_id=2062488979]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_2j7so")
+flip_h = true

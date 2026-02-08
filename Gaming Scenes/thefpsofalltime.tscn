@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://qd1vechhgn1n"]
+
+[ext_resource type="Script" uid="uid://ci3cxepeusddf" path="res://Gaming Scenes/thefpsofalltime.gd" id="1_87xyu"]
+[ext_resource type="Script" uid="uid://dmyswdlk2f3bt" path="res://Gaming Scenes/ray_cast_3d.gd" id="2_kawpa"]
+[ext_resource type="FontFile" uid="uid://ctdbtckcvfoa2" path="res://Gaming Scenes/VCR_OSD_MONO_1.001.ttf" id="4_hq6qf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bwjto"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_606se"]
+
+[node name="NJFPC" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.523716, 0)
+collision_layer = 5
+floor_stop_on_slope = false
+script = ExtResource("1_87xyu")
+InputDictionary = {
+"Backward": "Backward",
+"Escape": "ui_cancel",
+"Forward": "Forward",
+"Interact": "ui_accept",
+"Jump": "Jump",
+"Left": "Left",
+"Right": "Right",
+"Sprint": "Up"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_bwjto")
+
+[node name="Head" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" node_paths=PackedStringArray("DLabel")]
+target_position = Vector3(0, 0, -1)
+script = ExtResource("2_kawpa")
+DLabel = NodePath("../../../CanvasLayer/InteracrLabelHolder/InteractLabel")
+
+[node name="ilt" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="LTilt" type="Marker3D" parent="ilt"]
+unique_name_in_owner = true
+
+[node name="RTilt" type="Marker3D" parent="ilt"]
+unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InteracrLabelHolder" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InteractLabel" type="RichTextLabel" parent="CanvasLayer/InteracrLabelHolder"]
+layout_mode = 0
+offset_left = 726.0
+offset_top = 221.0
+offset_right = 785.0
+offset_bottom = 348.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("4_hq6qf")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "="
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="InteractLabel2" type="RichTextLabel" parent="CanvasLayer/InteracrLabelHolder"]
+layout_mode = 0
+offset_left = 727.0
+offset_top = 270.0
+offset_right = 786.0
+offset_bottom = 397.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("4_hq6qf")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "="
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_606se")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39944804, 0, -0.5471451)

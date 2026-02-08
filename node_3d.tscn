@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2xxs8dn6e7p7"]
+
+[ext_resource type="Script" uid="uid://ckbghhnucsvpc" path="res://canvas_layer.gd" id="1_noarx"]
+[ext_resource type="PackedScene" uid="uid://qd1vechhgn1n" path="res://Gaming Scenes/thefpsofalltime.tscn" id="2_a0tk4"]
+[ext_resource type="PackedScene" uid="uid://dthpuwo5v4kcv" path="res://SignalIndicator.tscn" id="2_r3fl7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r3fl7"]
+size = Vector3(200, 0.2, 200)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_a0tk4"]
+data = PackedVector3Array(-100, 0.099999994, 100, 100, 0.099999994, 100, -100, -0.099999994, 100, 100, 0.099999994, 100, 100, -0.099999994, 100, -100, -0.099999994, 100, 100, 0.099999994, -100, -100, 0.099999994, -100, 100, -0.099999994, -100, -100, 0.099999994, -100, -100, -0.099999994, -100, 100, -0.099999994, -100, 100, 0.099999994, 100, 100, 0.099999994, -100, 100, -0.099999994, 100, 100, 0.099999994, -100, 100, -0.099999994, -100, 100, -0.099999994, 100, -100, 0.099999994, -100, -100, 0.099999994, 100, -100, -0.099999994, -100, -100, 0.099999994, 100, -100, -0.099999994, 100, -100, -0.099999994, -100, 100, 0.099999994, 100, -100, 0.099999994, 100, 100, 0.099999994, -100, -100, 0.099999994, 100, -100, 0.099999994, -100, 100, 0.099999994, -100, -100, -0.099999994, 100, 100, -0.099999994, 100, -100, -0.099999994, -100, 100, -0.099999994, 100, 100, -0.099999994, -100, -100, -0.099999994, -100)
+
+[sub_resource type="Environment" id="Environment_a0tk4"]
+background_mode = 2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Signal Emmitter 1" type="Node3D" parent="." groups=["SignalEmitter"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4791603, 3.2856636)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Signal Emmitter 1"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("player_camera")]
+follow_viewport_scale = 0.0
+script = ExtResource("1_noarx")
+indicator_scene = ExtResource("2_r3fl7")
+player_camera = NodePath("../NJFPC/Head/Camera3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_r3fl7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_a0tk4")
+
+[node name="NJFPC" parent="." instance=ExtResource("2_a0tk4")]
+
+[node name="InteracrLabelHolder" parent="NJFPC/CanvasLayer" index="0"]
+offset_left = -209.0
+offset_top = -153.0
+offset_right = -209.0
+offset_bottom = -153.0
+
+[node name="Node3D" type="Node3D" parent="." groups=["SignalEmitter"]]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_a0tk4")
+
+[editable path="NJFPC"]
